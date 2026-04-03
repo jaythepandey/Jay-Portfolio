@@ -892,12 +892,7 @@
         </div>
         <div class="about-photo-wrap reveal d2">
           <div class="about-photo">
-            <!-- REPLACE: set src to your actual photo -->
-            <!-- <img src="photo-about.jpg" alt="Jay Pandeya" /> -->
-            <div class="ph">
-              <svg width="40" height="40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <span>Photo coming soon</span>
-            </div>
+            <img src="assets/Jay.webp" alt="Jay Pandeya" />
           </div>
         </div>
       </div>
@@ -1043,23 +1038,18 @@
         </div>
 
         <div class="pers-right reveal d2">
-          <!-- 4 image placeholders — replace when you have the photos -->
           <div class="pers-img-grid">
             <div class="pers-img">
-              <!-- <img src="photo-1.jpg" alt="" /> -->
-              <div class="ph" style="font-size:0.7rem">Photo</div>
+              <img src="assets/1st Image.webp" alt="" />
             </div>
             <div class="pers-img">
-              <!-- <img src="photo-2.jpg" alt="" /> -->
-              <div class="ph" style="font-size:0.7rem">Photo</div>
+              <img src="assets/Christ University Graduation.webp" alt="" />
             </div>
             <div class="pers-img">
-              <!-- <img src="photo-3.jpg" alt="" /> -->
-              <div class="ph" style="font-size:0.7rem">Photo</div>
+              <img src="assets/MIT ADT Graduation.webp" alt="" />
             </div>
             <div class="pers-img">
-              <!-- <img src="photo-4.jpg" alt="" /> -->
-              <div class="ph" style="font-size:0.7rem">Photo</div>
+              <img src="assets/Learnyst Work.webp" alt="" />
             </div>
           </div>
 
@@ -1159,19 +1149,14 @@
   <script>
     /* ── Custom cursor ── */
     const cursor = document.getElementById('cursor');
-    let mx = -100, my = -100, cx = -100, cy = -100;
-    document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
     document.querySelectorAll('a, button, .chip, .tag, .exp-card, .edu-card, .cta-btn, .social-btn').forEach(el => {
       el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
       el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
     });
-    (function loop() {
-      cx += (mx - cx) * 0.18;
-      cy += (my - cy) * 0.18;
-      cursor.style.left = cx + 'px';
-      cursor.style.top  = cy + 'px';
-      requestAnimationFrame(loop);
-    })();
 
     /* ── Nav scroll ── */
     const nav = document.getElementById('nav');
