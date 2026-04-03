@@ -43,7 +43,6 @@
       font-weight: 300;
       line-height: 1.75;
       overflow-x: hidden;
-      cursor: none;
     }
 
     /* ─── Grain overlay ─────────────────────────────── */
@@ -56,22 +55,6 @@
       opacity: 0.028;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
       background-size: 300px 300px;
-    }
-
-    /* ─── Custom cursor ─────────────────────────────── */
-    #cursor {
-      position: fixed;
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--white);
-      pointer-events: none;
-      z-index: 9999;
-      transform: translate(-50%, -50%);
-      transition: width 0.2s var(--ease-out), height 0.2s var(--ease-out), background 0.2s;
-      mix-blend-mode: difference;
-    }
-    #cursor.hovered {
-      width: 32px; height: 32px;
     }
 
     /* ─── Scroll reveal ─────────────────────────────── */
@@ -434,8 +417,25 @@
       background: linear-gradient(90deg, var(--accent), transparent);
       transform: translateX(-101%);
       transition: transform 0.5s var(--ease-out);
+      z-index: 2;
     }
     .edu-card:hover::after { transform: translateX(0); }
+
+    .edu-image-wrap {
+      margin: -2.75rem -2.25rem 2.25rem -2.25rem;
+      height: 200px;
+      overflow: hidden;
+      position: relative;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .edu-image-wrap img {
+      width: 100%; height: 100%; display: block; object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .edu-card:hover .edu-image-wrap img {
+      transform: scale(1.05);
+    }
 
     .edu-num {
       font-size: 0.7rem;
@@ -534,6 +534,26 @@
       overflow: hidden;
     }
     .exp-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    .exp-content {
+      flex: 1;
+      min-width: 0;
+    }
+    .exp-features {
+      margin-top: 1.5rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      aspect-ratio: 16/9;
+      background: var(--surface);
+    }
+    .exp-features img {
+      width: 100%; height: 100%; display: block; object-fit: cover;
+      transition: transform 0.6s var(--ease-out);
+    }
+    .exp-card:hover .exp-features img {
+      transform: scale(1.04);
+    }
 
     .exp-badge {
       display: inline-block;
@@ -634,25 +654,30 @@
       gap: 2.25rem;
     }
 
-    .pers-img-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.6rem;
-    }
-    .pers-img {
-      aspect-ratio: 1;
-      border-radius: 10px;
+    .pers-single-wrap {
+      border-radius: 20px;
       overflow: hidden;
-      background: var(--surface);
+      background: var(--surface-2);
       border: 1px solid var(--border);
+      aspect-ratio: 4/5;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     }
-    .pers-img img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.6s var(--ease-out);
+    .pers-single-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.8s var(--ease-out);
     }
-    .pers-img:hover img { transform: scale(1.07); }
+    .pers-single-wrap:hover img {
+      transform: scale(1.04);
+    }
+    .pers-single-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+      pointer-events: none;
+    }
 
     .sidebar-block { }
     .sidebar-lbl {
@@ -839,9 +864,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Custom cursor -->
-  <div id="cursor"></div>
 
   <!-- ─── NAV ─────────────────────────────────────────────── -->
   <nav id="nav">
@@ -1147,16 +1169,6 @@
 
   <!-- ─── SCRIPTS ───────────────────────────────────────────── -->
   <script>
-    /* ── Custom cursor ── */
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top  = e.clientY + 'px';
-    });
-    document.querySelectorAll('a, button, .chip, .tag, .exp-card, .edu-card, .cta-btn, .social-btn').forEach(el => {
-      el.addEventListener('mouseenter', () => cursor.classList.add('hovered'));
-      el.addEventListener('mouseleave', () => cursor.classList.remove('hovered'));
-    });
 
     /* ── Nav scroll ── */
     const nav = document.getElementById('nav');
