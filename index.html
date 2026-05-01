@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jay Pandeya — Creative Portfolio</title>
-  <meta name="description" content="Jay Pandeya — Media, Communication & B2B Marketing Professional based in Bengaluru." />
+  <title>Jay Pandeya — Product Marketing Manager</title>
+  <meta name="description" content="Jay Pandeya — Growth & Product Marketing Manager in B2B SaaS. Sole PMM for Manifest AI at Bik (Sequoia & YC-backed), based in Bengaluru." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Figtree:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet" />
@@ -97,7 +97,7 @@
     }
     #nav.scrolled {
       padding: 1rem 4rem;
-      background: rgba(7,7,15,0.80);
+      background: rgba(7,7,15,0.85);
       backdrop-filter: blur(24px) saturate(1.4);
       border-bottom: 1px solid var(--border);
     }
@@ -139,61 +139,74 @@
     #hero {
       position: relative;
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
-      padding: 0 6rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       overflow: hidden;
       background: var(--bg);
     }
 
-    /* Mesh gradient background */
-    .hero-bg {
+    /* Left: photo column */
+    .hero-photo-col {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-photo-col img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+    }
+    /* Gradient fade right edge into background */
+    .hero-photo-col::after {
+      content: '';
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(ellipse 100% 80% at 85% 50%, #0d1952 0%, transparent 55%),
-        radial-gradient(ellipse 60% 60% at 15% 80%, #0a0a20 0%, transparent 60%);
+      background: linear-gradient(
+        90deg,
+        rgba(7,7,15,0.15) 0%,
+        rgba(7,7,15,0.0) 40%,
+        rgba(7,7,15,0.85) 85%,
+        rgba(7,7,15,1) 100%
+      );
+      pointer-events: none;
+    }
+    /* Gradient fade bottom edge */
+    .hero-photo-col::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 35%;
+      background: linear-gradient(to top, var(--bg) 0%, transparent 100%);
+      pointer-events: none;
+      z-index: 1;
     }
 
-    /* Animated orb */
+    /* Right: text column */
+    .hero-text-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8rem 5.5rem 8rem 2.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Animated orb behind text */
     .hero-orb {
       position: absolute;
-      width: 600px; height: 600px;
+      width: 500px; height: 500px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(74,124,247,0.14) 0%, transparent 65%);
-      right: 2%; top: 50%;
+      background: radial-gradient(circle, rgba(74,124,247,0.12) 0%, transparent 65%);
+      right: -10%; top: 50%;
       transform: translateY(-50%);
       animation: orb 7s ease-in-out infinite;
       pointer-events: none;
+      z-index: 1;
     }
     @keyframes orb {
       0%, 100% { transform: translateY(-50%) scale(1); opacity: 0.7; }
       50%       { transform: translateY(-54%) scale(1.1); opacity: 1; }
-    }
-
-    /* Decorative grid lines */
-    .hero-grid {
-      position: absolute;
-      inset: 0;
-      background-image:
-        linear-gradient(var(--white-05) 1px, transparent 1px),
-        linear-gradient(90deg, var(--white-05) 1px, transparent 1px);
-      background-size: 80px 80px;
-      mask-image: radial-gradient(ellipse 70% 80% at 80% 50%, black 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-content {
-      position: relative;
-      z-index: 2;
-      text-align: right;
-      animation: heroIn 1.2s var(--ease-out) 0.1s both;
-    }
-    @keyframes heroIn {
-      from { opacity: 0; transform: translateY(30px); filter: blur(6px); }
-      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
     }
 
     .hero-eyebrow {
@@ -204,11 +217,13 @@
       color: var(--accent);
       margin-bottom: 1.25rem;
       animation: heroIn 1.2s var(--ease-out) 0.0s both;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-name {
       font-family: var(--ff-display);
-      font-size: clamp(3.8rem, 9.5vw, 8rem);
+      font-size: clamp(3.5rem, 7vw, 6.5rem);
       font-weight: 800;
       line-height: 0.95;
       letter-spacing: -0.03em;
@@ -216,38 +231,73 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      animation: heroIn 1.2s var(--ease-out) 0.1s both;
+      position: relative;
+      z-index: 2;
     }
 
     .hero-sub {
-      font-size: clamp(0.88rem, 1.8vw, 1.1rem);
+      font-size: clamp(0.88rem, 1.5vw, 1.05rem);
       font-weight: 300;
       color: var(--white-60);
       letter-spacing: 0.04em;
+      margin-bottom: 2.5rem;
+      animation: heroIn 1.2s var(--ease-out) 0.2s both;
+      position: relative;
+      z-index: 2;
     }
 
-    .hero-meta {
-      position: absolute;
-      bottom: 3.5rem;
-      right: 6rem;
+    .hero-cta-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      animation: heroIn 1.2s var(--ease-out) 0.35s both;
+      position: relative;
       z-index: 2;
-      text-align: right;
-      animation: heroIn 1.2s var(--ease-out) 0.5s both;
     }
-    .hero-portfolio-tag {
-      font-family: var(--ff-display);
+
+    .hero-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--ff-body);
       font-size: 0.82rem;
       font-weight: 500;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--white-30);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.3s var(--ease-out);
+    }
+    .hero-btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: 1px solid var(--accent);
+    }
+    .hero-btn-primary:hover {
+      background: #3a6ce0;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(74,124,247,0.35);
+    }
+    .hero-btn-ghost {
+      background: transparent;
+      color: var(--white-60);
+      border: 1px solid var(--border);
+    }
+    .hero-btn-ghost:hover {
+      color: var(--white);
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
     }
 
     .hero-scroll {
       position: absolute;
-      bottom: 3.5rem;
-      left: 6rem;
-      z-index: 2;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
       display: flex;
       align-items: center;
       gap: 1rem;
@@ -279,6 +329,53 @@
       100% { left: 100%; }
     }
 
+    @keyframes heroIn {
+      from { opacity: 0; transform: translateY(30px); filter: blur(6px); }
+      to   { opacity: 1; transform: translateY(0);    filter: blur(0); }
+    }
+
+    /* ─── STATS STRIP ───────────────────────────────── */
+    #stats {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 6rem;
+    }
+    .stats-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      flex: 1;
+      min-width: 100px;
+    }
+    .stat-item + .stat-item {
+      border-left: 1px solid var(--border);
+    }
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white-30);
+      text-align: center;
+    }
+
     /* ─── SECTION COMMON ────────────────────────────── */
     .section-wrap {
       padding: 8rem 6rem;
@@ -306,7 +403,7 @@
 
     .about-grid {
       display: grid;
-      grid-template-columns: 1fr 420px;
+      grid-template-columns: 1fr 400px;
       gap: 6rem;
       align-items: center;
     }
@@ -347,20 +444,6 @@
     }
     .about-photo:hover img { transform: scale(1.04); }
 
-    /* Photo placeholder styling */
-    .ph {
-      width: 100%; height: 100%;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 0.5rem;
-      color: var(--white-30);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .ph svg { opacity: 0.35; }
-
-    /* Decorative accent behind photo */
     .about-photo-wrap::before {
       content: '';
       position: absolute;
@@ -435,6 +518,35 @@
     }
     .edu-card:hover .edu-image-wrap img {
       transform: scale(1.05);
+    }
+
+    /* Placeholder for cards without a photo */
+    .edu-image-placeholder {
+      margin: -2.75rem -2.25rem 2.25rem -2.25rem;
+      height: 200px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .edu-image-placeholder::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 60% at 50% 50%, rgba(74,124,247,0.08) 0%, transparent 70%);
+    }
+    .edu-placeholder-label {
+      font-family: var(--ff-display);
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--white-10);
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
     }
 
     .edu-num {
@@ -539,9 +651,10 @@
       flex: 1;
       min-width: 0;
     }
+
     .exp-features {
-      margin-top: 1.5rem;
-      border-radius: 12px;
+      margin-top: 1.25rem;
+      border-radius: 10px;
       overflow: hidden;
       border: 1px solid var(--border);
       aspect-ratio: 16/9;
@@ -573,6 +686,7 @@
       font-size: 1rem;
       font-weight: 700;
       margin-bottom: 0.2rem;
+      line-height: 1.3;
     }
     .exp-company {
       font-size: 0.855rem;
@@ -583,6 +697,30 @@
       font-size: 0.78rem;
       color: var(--white-30);
       letter-spacing: 0.04em;
+      margin-bottom: 0.85rem;
+    }
+
+    .exp-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      margin-top: 0.75rem;
+    }
+    .exp-highlights li {
+      font-size: 0.82rem;
+      color: var(--white-60);
+      padding-left: 1.1rem;
+      position: relative;
+      line-height: 1.55;
+    }
+    .exp-highlights li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      top: 0.22em;
     }
 
     /* Skills panel */
@@ -617,7 +755,37 @@
       background: var(--accent-glow);
     }
 
-    /* ─── JACK OF ALL ────────────────────────────────── */
+    /* Certifications block */
+    .certs-block {
+      margin-top: 0.5rem;
+    }
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-item:first-of-type { border-top: 1px solid var(--border); }
+    .cert-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 0.55rem;
+    }
+    .cert-name {
+      font-size: 0.855rem;
+      color: var(--white-60);
+      line-height: 1.4;
+    }
+    .cert-year {
+      font-size: 0.72rem;
+      color: var(--white-30);
+      margin-top: 0.1rem;
+    }
+
+    /* ─── BEYOND THE RESUME ──────────────────────────── */
     #personality { background: var(--bg); }
 
     .pers-layout {
@@ -654,27 +822,37 @@
       gap: 2.25rem;
     }
 
-    .pers-single-wrap {
-      border-radius: 20px;
+    /* 2×2 photo mosaic — was missing, causing the dead space */
+    .pers-img-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 0.65rem;
+    }
+    .pers-img {
+      border-radius: 12px;
       overflow: hidden;
       background: var(--surface-2);
       border: 1px solid var(--border);
-      aspect-ratio: 4/5;
       position: relative;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25);
     }
-    .pers-single-wrap img {
-      width: 100%; height: 100%; object-fit: cover; display: block;
-      transition: transform 0.8s var(--ease-out);
+    .pers-img:nth-child(1) { aspect-ratio: 3/4; }
+    .pers-img:nth-child(2) { aspect-ratio: 3/4; margin-top: 1.5rem; }
+    .pers-img:nth-child(3) { aspect-ratio: 4/3; }
+    .pers-img:nth-child(4) { aspect-ratio: 4/3; }
+    .pers-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s var(--ease-out);
     }
-    .pers-single-wrap:hover img {
-      transform: scale(1.04);
-    }
-    .pers-single-wrap::after {
+    .pers-img:hover img { transform: scale(1.05); }
+    /* Subtle inner border overlay */
+    .pers-img::after {
       content: '';
       position: absolute;
       inset: 0;
-      border-radius: 20px;
+      border-radius: 12px;
       box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
       pointer-events: none;
     }
@@ -843,23 +1021,28 @@
 
     /* ─── RESPONSIVE ─────────────────────────────────── */
     @media (max-width: 1024px) {
-      .about-grid    { grid-template-columns: 1fr; gap: 4rem; }
-      .edu-grid      { grid-template-columns: 1fr; }
-      .exp-layout    { grid-template-columns: 1fr; gap: 3.5rem; }
-      .pers-layout   { grid-template-columns: 1fr; gap: 3.5rem; }
-      #nav ul        { display: none; }
-      .section-wrap  { padding: 6rem 2rem; }
-      #hero          { padding: 0 2rem; align-items: center; }
-      .hero-content  { text-align: center; }
-      .hero-name     { font-size: clamp(3rem, 12vw, 5rem); }
-      .hero-meta, .hero-scroll { left: 2rem; right: 2rem; text-align: center; }
-      footer         { padding: 2rem; }
-      .contact-info-row { gap: 2.5rem; }
+      #hero                { grid-template-columns: 1fr; }
+      .hero-photo-col      { display: none; }
+      .hero-text-col       { padding: 10rem 2.5rem 8rem; justify-content: center; min-height: 100vh; }
+      .about-grid          { grid-template-columns: 1fr; gap: 4rem; }
+      .edu-grid            { grid-template-columns: 1fr; }
+      .exp-layout          { grid-template-columns: 1fr; gap: 3.5rem; }
+      .pers-layout         { grid-template-columns: 1fr; gap: 3.5rem; }
+      #nav ul              { display: none; }
+      .section-wrap        { padding: 6rem 2rem; }
+      #stats               { padding: 2.5rem 2rem; }
+      footer               { padding: 2rem; }
+      .contact-info-row    { gap: 2.5rem; }
+      .stats-inner         { gap: 1.5rem; }
+      .stat-item + .stat-item { border-left: none; border-top: 1px solid var(--border); padding-top: 1.5rem; }
     }
 
     @media (max-width: 600px) {
-      .pers-img-grid { grid-template-columns: 1fr 1fr; }
-      .cta-row       { flex-direction: column; align-items: center; }
+      .pers-img-grid       { grid-template-columns: 1fr 1fr; }
+      .cta-row             { flex-direction: column; align-items: center; }
+      .stats-inner         { flex-direction: column; align-items: flex-start; }
+      .stat-item           { align-items: flex-start; }
+      .stat-item + .stat-item { border-top: 1px solid var(--border); padding-top: 1rem; }
     }
   </style>
 </head>
@@ -879,23 +1062,53 @@
 
   <!-- ─── HERO ─────────────────────────────────────────────── -->
   <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-grid"></div>
-    <div class="hero-orb"></div>
 
-    <div class="hero-content">
-      <p class="hero-eyebrow">Creative Portfolio</p>
-      <h1 class="hero-name">Jay Pandeya</h1>
-      <p class="hero-sub">Media &amp; Communication Professional</p>
+    <!-- Left: Jay's photo fills the left half -->
+    <div class="hero-photo-col">
+      <img src="assets/Jay.webp" alt="Jay Pandeya" />
     </div>
 
-    <div class="hero-meta">
-      <p class="hero-portfolio-tag">Bengaluru, India · 2025</p>
+    <!-- Right: text + CTA -->
+    <div class="hero-text-col">
+      <div class="hero-orb"></div>
+      <p class="hero-eyebrow">Product Marketing Manager</p>
+      <h1 class="hero-name">Jay<br>Pandeya</h1>
+      <p class="hero-sub">B2B SaaS · Growth &amp; Product Marketing<br>Bengaluru, India · 2026</p>
+      <div class="hero-cta-row">
+        <a href="#experience" class="hero-btn hero-btn-primary">View Experience</a>
+        <a href="#contact" class="hero-btn hero-btn-ghost">Get in Touch</a>
+      </div>
     </div>
 
     <div class="hero-scroll">
       <div class="scroll-bar"></div>
       <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ─── ACHIEVEMENTS STRIP ───────────────────────────────── -->
+  <section id="stats">
+    <div class="stats-inner">
+      <div class="stat-item reveal">
+        <span class="stat-num">3+</span>
+        <span class="stat-lbl">Years Experience</span>
+      </div>
+      <div class="stat-item reveal d1">
+        <span class="stat-num">6,000+</span>
+        <span class="stat-lbl">High-Intent Leads</span>
+      </div>
+      <div class="stat-item reveal d2">
+        <span class="stat-num">4.2×</span>
+        <span class="stat-lbl">Blended ROAS</span>
+      </div>
+      <div class="stat-item reveal d3">
+        <span class="stat-num">48%</span>
+        <span class="stat-lbl">YoY Lead Growth</span>
+      </div>
+      <div class="stat-item reveal d4">
+        <span class="stat-num">30+</span>
+        <span class="stat-lbl">Sales Assets Built</span>
+      </div>
     </div>
   </section>
 
@@ -907,14 +1120,14 @@
           <p class="section-label reveal">01 — About</p>
           <h2 class="about-heading reveal d1">Who is<br>Jay Pandeya?</h2>
           <div class="about-body">
-            <p class="reveal d2">Born and raised in Chandigarh, I left home at 18 to begin my journey of acquiring knowledge, honing my skills and finding out who I really am. My goal is to always make my own path and do things differently rather than simply following the crowd.</p>
-            <p class="reveal d3">My work is very detail-oriented, and I perform best under pressure. I try my best to befriend deadlines and make love to the task at hand.</p>
-            <p class="reveal d4">Quality and precise outputs are what I usually aim for — with smooth, persuasive and efficacious communication skills in a professional as well as a social setting. Enthusiastic about life and generally wearing a smile, I'm always ready to learn &amp; adapt.</p>
+            <p class="reveal d2">Marketing professional with 3+ years across full-funnel growth, product marketing, and content strategy in B2B SaaS and EdTech. Currently the sole PMM for Manifest AI at Bik (Sequoia and YC-backed), owning end-to-end positioning, GTM execution, and sales enablement for the US Shopify market.</p>
+            <p class="reveal d3">Born and raised in Chandigarh, I left home at 18 to begin my journey — acquiring knowledge, honing skills, and finding out who I really am. My work is detail-oriented and I perform best under pressure. I befriend deadlines and make love to the task at hand.</p>
+            <p class="reveal d4">I operate effectively as a one-person marketing function and as a cross-functional team player. Equally comfortable in execution and strategy, I bring curiosity and impact to every environment I work in.</p>
           </div>
         </div>
         <div class="about-photo-wrap reveal d2">
           <div class="about-photo">
-            <img src="assets/Jay.webp" alt="Jay Pandeya" />
+            <img src="assets/1st Image.webp" alt="Jay Pandeya at campus" />
           </div>
         </div>
       </div>
@@ -929,7 +1142,11 @@
 
       <div class="edu-grid">
 
+        <!-- DAV Public School -->
         <div class="edu-card reveal d1">
+          <div class="edu-image-placeholder">
+            <span class="edu-placeholder-label">DAV</span>
+          </div>
           <div class="edu-num">01</div>
           <div class="edu-school">DAV Public School</div>
           <div class="edu-loc">Chandigarh</div>
@@ -943,27 +1160,35 @@
           </ul>
         </div>
 
+        <!-- MIT-ADT University -->
         <div class="edu-card reveal d2">
+          <div class="edu-image-wrap">
+            <img src="assets/MIT ADT Graduation.webp" alt="Graduation at MIT ADT University, Pune" />
+          </div>
           <div class="edu-num">02</div>
-          <div class="edu-school">MIT-ADT</div>
+          <div class="edu-school">MIT-ADT University</div>
           <div class="edu-loc">Pune</div>
           <div class="edu-divider"></div>
-          <div class="edu-degree">Bachelor of Arts — Media Studies<br><span style="font-weight:400;color:var(--white-60)">Specialization in Public Relations</span></div>
+          <div class="edu-degree">Bachelor of Arts — Media Studies &amp; Journalism<br><span style="font-weight:400;color:var(--white-60)">Specialization in Public Relations</span></div>
           <div class="edu-years">2017 – 2020</div>
           <ul class="edu-bullets">
             <li>Department Football Team Captain</li>
             <li>Practical knowledge of Media and Communication Studies</li>
-            <li>Experienced living away from home or any comfort zone</li>
+            <li>Experienced living away from home and any comfort zone</li>
             <li>Tried News Reporting, Modelling and Camera Work</li>
           </ul>
         </div>
 
+        <!-- Christ University -->
         <div class="edu-card reveal d3">
+          <div class="edu-image-wrap">
+            <img src="assets/Christ University Graduation.webp" alt="Graduation at Christ University, Bangalore" />
+          </div>
           <div class="edu-num">03</div>
           <div class="edu-school">Christ University</div>
           <div class="edu-loc">Bangalore</div>
           <div class="edu-divider"></div>
-          <div class="edu-degree">Masters in Media &amp; Communication<br><span style="font-weight:400;color:var(--white-60)">Advertising &amp; Corporate Communication</span></div>
+          <div class="edu-degree">Master of Arts — Media &amp; Communication<br><span style="font-weight:400;color:var(--white-60)">Advertising &amp; Corporate Communication</span></div>
           <div class="edu-years">2021 – 2023</div>
           <ul class="edu-bullets">
             <li>Headed the Design team — Media Meet 2022 (international conference)</li>
@@ -987,66 +1212,127 @@
         <!-- Roles -->
         <div class="exp-stack">
 
+          <!-- Bik / Manifest AI — Current -->
           <div class="exp-card reveal d1">
-            <div class="exp-avatar">B</div>
-            <!-- REPLACE: <div class="exp-avatar"><img src="photo-bik.jpg" alt="Bik" /></div> -->
-            <div>
+            <div class="exp-avatar">M</div>
+            <div class="exp-content">
               <div class="exp-badge">Current Role</div>
-              <div class="exp-role">B2B Marketer &amp; Content Strategist</div>
-              <div class="exp-company">Bik · Bengaluru</div>
-              <div class="exp-period">2024 — Present</div>
+              <div class="exp-role">Product Marketing Manager — Manifest AI</div>
+              <div class="exp-company">Bik (Sequoia &amp; YC-backed) · Bengaluru</div>
+              <div class="exp-period">November 2025 — Present</div>
+              <ul class="exp-highlights">
+                <li>Sole PMM — owns positioning, GTM, and sales enablement end-to-end</li>
+                <li>Built 30+ sales assets from scratch: battle cards, case studies, cold email sequences, pitch decks</li>
+                <li>Produced all collateral that closed KiwiCo as a paying customer</li>
+                <li>Launched 5-page competitor comparison microsite for the US market</li>
+                <li>Q4 OKRs trending upward MoM: Jan 75% → Feb 73% → Mar 86%</li>
+              </ul>
             </div>
           </div>
 
+          <!-- Learnyst -->
           <div class="exp-card reveal d2">
             <div class="exp-avatar">L</div>
-            <!-- REPLACE: <div class="exp-avatar"><img src="photo-learnyst.jpg" alt="Learnyst" /></div> -->
-            <div>
+            <div class="exp-content">
               <div class="exp-role">Digital Marketing Manager</div>
               <div class="exp-company">Learnyst · Bengaluru</div>
-              <div class="exp-period">September 2023 — 2024</div>
+              <div class="exp-period">September 2023 — October 2025</div>
+              <ul class="exp-highlights">
+                <li>6,000+ high-intent leads in 10 months → 300+ customer wins</li>
+                <li>48% YoY lead growth, 4.2× blended ROAS, 27% CAC reduction</li>
+                <li>Scaled LinkedIn 7K → 16K (+129%) and YouTube by 60K+ monthly viewers</li>
+                <li>Unlocked AI search channel: 600+ leads in one month at 4% conversion</li>
+              </ul>
+              <div class="exp-features">
+                <img src="assets/Learnyst Work.webp" alt="Jay at Learnyst office" />
+              </div>
             </div>
           </div>
 
+          <!-- MPL -->
           <div class="exp-card reveal d3">
-            <div class="exp-avatar">M</div>
-            <!-- REPLACE: <div class="exp-avatar"><img src="photo-mpl.jpg" alt="MPL" /></div> -->
-            <div>
+            <div class="exp-avatar">P</div>
+            <div class="exp-content">
               <div class="exp-role">Brand Marketing Intern</div>
               <div class="exp-company">Mobile Premier League (MPL) · Bengaluru</div>
               <div class="exp-period">November 2022 — February 2023</div>
+              <ul class="exp-highlights">
+                <li>Scouted and onboarded influencers aligned with campaign objectives</li>
+                <li>Benchmarked competitor positioning to inform campaign strategy</li>
+                <li>Managed content creation and publishing across social channels</li>
+              </ul>
+              <div class="exp-features">
+                <img src="assets/Jay - MPL Thumbnail.webp" alt="MPL brand content by Jay" />
+              </div>
             </div>
           </div>
 
         </div>
 
-        <!-- Skills -->
+        <!-- Skills + Certifications -->
         <div class="skills-panel reveal d2">
           <div class="skills-group-label">Core Skills</div>
           <div class="skills-chips">
             <span class="chip">Product Marketing</span>
-            <span class="chip">Brand Marketing</span>
-            <span class="chip">B2B Marketing</span>
+            <span class="chip">GTM Strategy</span>
+            <span class="chip">Sales Enablement</span>
+            <span class="chip">B2B SaaS Marketing</span>
+            <span class="chip">Competitive Intelligence</span>
             <span class="chip">Content Strategy</span>
-            <span class="chip">Content &amp; Social Media</span>
-            <span class="chip">AI-Enhanced Campaigns</span>
-            <span class="chip">Cross-Channel Strategy</span>
-            <span class="chip">Data-Driven Optimisation</span>
+            <span class="chip">Performance Marketing</span>
+            <span class="chip">AI-Native Workflows</span>
+            <span class="chip">AI Answer Engine Optim.</span>
             <span class="chip">Lead Generation</span>
             <span class="chip">Marketing Automation</span>
             <span class="chip">Cold Email Campaigns</span>
+            <span class="chip">Customer Lifecycle Design</span>
             <span class="chip">Case Study Production</span>
-            <span class="chip">SEO &amp; Content Strategy</span>
-            <span class="chip">Strategic Planning</span>
-            <span class="chip">Creative Problem-Solving</span>
-            <span class="chip">Communication</span>
+            <span class="chip">SEO / SEM</span>
+            <span class="chip">Google &amp; Meta Ads</span>
+            <span class="chip">LinkedIn Ads</span>
+            <span class="chip">Multi-touch Attribution</span>
+            <span class="chip">Data-Driven Optimisation</span>
+            <span class="chip">Employer Branding</span>
+            <span class="chip">Video Production</span>
+          </div>
+
+          <div class="skills-group-label">Certifications</div>
+          <div class="certs-block">
+            <div class="cert-item">
+              <div class="cert-dot"></div>
+              <div>
+                <div class="cert-name">Google Ads — Search &amp; Display</div>
+                <div class="cert-year">2024</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-dot"></div>
+              <div>
+                <div class="cert-name">HubSpot Inbound Marketing Certification</div>
+                <div class="cert-year">2024</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-dot"></div>
+              <div>
+                <div class="cert-name">GA4 Advanced Analytics Certification</div>
+                <div class="cert-year">2024</div>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-dot"></div>
+              <div>
+                <div class="cert-name">LinkedIn Ads Marketing Solutions</div>
+                <div class="cert-year">2024</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ─── JACK OF ALL ────────────────────────────────────────── -->
+  <!-- ─── BEYOND THE RESUME ─────────────────────────────────── -->
   <section id="personality">
     <div class="section-wrap">
       <div class="pers-layout">
@@ -1054,24 +1340,25 @@
         <div class="pers-left">
           <p class="section-label reveal">04 — Beyond the Resume</p>
           <h2 class="pers-headline reveal d1">Jack of All<br><em>Master of Some</em></h2>
-          <p class="pers-text reveal d2">After studying Media and Communication for 5 years and working professionally for over 2 years, I've developed the ability to be spontaneous, make meaningful connections, and work independently. I love to push myself to the limit and bring out my best in every project.</p>
-          <p class="pers-text reveal d3">My friends say that I am funny and adaptable to my surroundings — a great work buddy who makes people feel comfortable and safe. My way with words helps me get out of sticky situations with ease.</p>
-          <p class="pers-text reveal d4">My experience in product and growth marketing covers user insights, cross-channel campaigns, and rapid experimentation. I love working in environments where learning and adaptability are strengths — and I always bring curiosity and impact to the table.</p>
+          <p class="pers-text reveal d2">After studying Media and Communication for 5 years and working professionally for 3+ years, I've developed the ability to be spontaneous, make meaningful connections, and work independently. I love to push myself to the limit and bring out my best in every project.</p>
+          <p class="pers-text reveal d3">My friends say I'm funny and adaptable — a great work buddy who makes people feel comfortable and safe. My way with words helps me navigate sticky situations with ease and build trust quickly.</p>
+          <p class="pers-text reveal d4">I thrive in environments where learning and adaptability are strengths. Whether it's a startup moving at breakneck speed or a cross-functional team with competing priorities, I always bring curiosity, ownership, and genuine energy to the table.</p>
         </div>
 
         <div class="pers-right reveal d2">
+          <!-- 2×2 photo mosaic — previously had no CSS, now properly styled -->
           <div class="pers-img-grid">
             <div class="pers-img">
-              <img src="assets/1st Image.webp" alt="" />
+              <img src="assets/1st Image.webp" alt="Jay at college campus event" />
             </div>
             <div class="pers-img">
-              <img src="assets/Christ University Graduation.webp" alt="" />
+              <img src="assets/Jay.webp" alt="Jay Pandeya" />
             </div>
             <div class="pers-img">
-              <img src="assets/MIT ADT Graduation.webp" alt="" />
+              <img src="assets/MIT ADT Graduation.webp" alt="Graduation day at MIT ADT" />
             </div>
             <div class="pers-img">
-              <img src="assets/Learnyst Work.webp" alt="" />
+              <img src="assets/Christ University Graduation.webp" alt="Graduation at Christ University" />
             </div>
           </div>
 
@@ -1089,21 +1376,22 @@
           </div>
 
           <div class="sidebar-block">
-            <div class="sidebar-lbl">Softwares &amp; Tools</div>
+            <div class="sidebar-lbl">Tools &amp; Platforms</div>
             <div class="sidebar-tags">
-              <span class="tag">Microsoft Suite</span>
-              <span class="tag">Adobe Creative</span>
+              <span class="tag">HubSpot &amp; Salesforce</span>
               <span class="tag">Google Workspace</span>
               <span class="tag">Meta &amp; LinkedIn Ads</span>
               <span class="tag">Figma &amp; Framer</span>
-              <span class="tag">ChatGPT &amp; Perplexity</span>
-              <span class="tag">SEMrush &amp; GA4</span>
-              <span class="tag">Claude &amp; Jasper</span>
-              <span class="tag">HubSpot &amp; Salesforce</span>
+              <span class="tag">GA4 &amp; Looker Studio</span>
+              <span class="tag">SEMrush &amp; Hotjar</span>
+              <span class="tag">ChatGPT &amp; Claude</span>
+              <span class="tag">Perplexity &amp; Jasper</span>
               <span class="tag">Brevo &amp; WATI</span>
-              <span class="tag">Canva &amp; Gamma AI</span>
               <span class="tag">Apollo.io &amp; Exotel</span>
-              <span class="tag">Envato &amp; Freepik</span>
+              <span class="tag">Canva &amp; Gamma AI</span>
+              <span class="tag">Adobe Creative Suite</span>
+              <span class="tag">Notion &amp; Ghost</span>
+              <span class="tag">Bik Platform</span>
             </div>
           </div>
         </div>
@@ -1118,17 +1406,20 @@
       <h2 class="contact-question reveal">Still Interested?<br>Any Questions?</h2>
 
       <div class="cta-row">
-        <!-- REPLACE href with your actual resume link -->
         <a href="#" class="cta-btn reveal d1" id="resume-link">
           <span class="cta-icon">📄</span>
           <span class="cta-txt">My Resume</span>
           <span class="cta-sub">View &amp; Download</span>
         </a>
-        <!-- REPLACE href with your actual portfolio/works link -->
         <a href="#" class="cta-btn reveal d2" id="works-link">
           <span class="cta-icon">💼</span>
           <span class="cta-txt">My Works</span>
           <span class="cta-sub">Case Studies &amp; Campaigns</span>
+        </a>
+        <a href="https://linkedin.com/in/jaythepandey" target="_blank" rel="noopener" class="cta-btn reveal d3">
+          <span class="cta-icon">🔗</span>
+          <span class="cta-txt">LinkedIn</span>
+          <span class="cta-sub">Connect with me</span>
         </a>
       </div>
 
@@ -1136,7 +1427,7 @@
 
       <div class="contact-info-row reveal d1">
         <div class="contact-info-item">
-          <div class="ci-label">Address</div>
+          <div class="ci-label">Location</div>
           <div class="ci-val">New B.E.L Road, Bengaluru</div>
         </div>
         <div class="contact-info-item">
@@ -1148,7 +1439,7 @@
           <div class="ci-val"><a href="tel:+919878394930">+91 9878394930</a></div>
         </div>
         <div class="contact-info-item">
-          <div class="ci-label">Social Media</div>
+          <div class="ci-label">Social</div>
           <div class="ci-val">
             <div class="social-row">
               <a href="https://linkedin.com/in/jaythepandey" target="_blank" rel="noopener" class="social-btn" title="LinkedIn">in</a>
@@ -1163,7 +1454,7 @@
 
   <!-- ─── FOOTER ────────────────────────────────────────────── -->
   <footer>
-    <p>© 2025 Jay Pandeya</p>
+    <p>© 2026 Jay Pandeya</p>
     <p>Built with intention. <a href="#hero">Back to top ↑</a></p>
   </footer>
 
